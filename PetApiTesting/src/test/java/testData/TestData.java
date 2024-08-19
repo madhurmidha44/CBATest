@@ -10,7 +10,7 @@ public class TestData {
     // Test data for Get APIs'
     public static int[] invalidPetIds={0};
     public static String[] validPetStatuses={"available", "pending"};
-    public static String[] invalidPetStatuses={"unavailable"};
+    public static String[] invalidPetStatuses={"history"};
     public static Map<String, String> getAPIHeaders()
     {
         Map<String, String> headers = new HashMap<>();
@@ -39,6 +39,16 @@ public class TestData {
         headers.put("Content-Type", "application/x-www-form-urlencoded");
         return headers;
     }
+    public static Map<String, String> postAPIHeadersWithMultipartForm()
+    {
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Accept", "application/json");
+        headers.put("Content-Type", "multipart/form-data");
+        return headers;
+    }
+    public static String additionalMetadata="Image";
+    public static String petImageName="BearImage.jpg";
+    public static String pathPetImage=System.getProperty("user.dir") + "/PetImage/"+petImageName;
 
     // Test data for Put APIs'
     public static String updatedNameOfPet="sadie";

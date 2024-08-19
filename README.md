@@ -21,7 +21,7 @@ Framework and structure of the project:
 
     b) There is a 'Testbase' class in test package. It contains details such as endpoint of APIs' and various hooks. 'BeforeMethod' hook is run before each test case starts and it initializes the starting test for the extent report so that tests details are documented in the report. 'AfterMethod' hook is run once test case finishes/fail and closes the finished test case in Extent Report. This hook also logs the status details of the finished test in the test report. 'AfterSuite' hook is run once all the tests finish and it closes the Extent Report.
 
-    c1) There are PetDeleteAPITests, PetGetAPITests, PetPostAPITests and PetPutAPITests classes that inherit TestBase class. These classes contains test cases with @Test attribute for delete, get, post and put APIs' respectively of pet. For details of API tests under Delete, Get, Post and PUT APIs' of pet, please refer to the link "https://petstore.swagger.io/#/pet". These classes contain positive and negative tests for the corresponding APIs'.
+    c1) There are PetDeleteAPITests, PetGetAPITests, PetPostAPITests and PetPutAPITests classes that inherit TestBase class. These classes contains total 13 test cases with @Test attribute for delete, get, post and put APIs' respectively of pet. For details of API tests under Delete, Get, Post and PUT APIs' of pet, please refer to the link "https://petstore.swagger.io/#/pet". These classes contain positive and negative tests for the corresponding APIs'.
     c2) Tests are run under these classes via Gherkins language (given, when, then) with the assistance of Rest assured library. For ex. 'given' statement is used for pre-requisite such as Headers and Body etc of the API request. 'When' statement is used to trigger the API with endpoint and path etc. 'then' statement is used to grab the response details along with putting assertions on the response codes & body etc. Rest other assertions are done using Test NG library. 
 
     d) There is a page object model having class(es) under pages package. Such class(es) enhances modularity, improve readability and reduce maintainability & redundancy of the code. These classes contain specific functionalities which are repeatedly required by the calling test cases by creating their objects and thus, reduced redundancy. For ex. in current project, 'PutAPI' page class is created to grab valid pet id from the database and this pet id can be utilised by various tests under 'API tests classes' to do their operations.
@@ -56,7 +56,9 @@ In the pipeline file/config/Jenkins UI, insert following commands once API devel
 Running tests in a Continuous Integration (CI) pipeline using GitHub is being using GitHub Actions. Here's how I have set up set up and run tests in CI using GitHub Actions:
 
     a) Created a .github/workflows Directory in the repository
+
     b) Inside the .github/workflows directory, created a new YAML file 'ci.yml' for the workflow
+
     c) ci.yml has following sections:
         c1) name: this is the name of the workflow
         c2) on: this section defines the events that trigger the workflow. In my case, the workflow runs whenever code is pushed to the         'feature/MadhurMidha-CBATest' branch or when a pull request is opened against the 'feature/MadhurMidha-CBATest' branch
@@ -66,6 +68,8 @@ Running tests in a Continuous Integration (CI) pipeline using GitHub is being us
             actions/checkout@v3: checks out the code from the repository so it can be built and tested
             actions/setup-java@v3: sets up Java 8, which is required for running the tests
             mvn clean test: cleans the build environment, installs dependencies using Maven and then runs the tests
+
+    d) Whenever code is pushed to the 'feature/MadhurMidha-CBATest' branch or when a pull request is opened against the 'feature/MadhurMidha-CBATest' branch, CI workflow is triggered in 'Actions' tab of the Git Hub repository. Just click on the workflow link to see the execution of tests
 
 6. Test Results Report:
     a) Once execution is finished, HTML test results report with the name format "PetAPIReport_yyyyMMddHHmm.html" is generated in the 'Reports' folder of the project

@@ -7,12 +7,14 @@ import org.testng.annotations.Test;
 import pages.PutAPI;
 import testData.TestData;
 
+import java.io.File;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.hamcrest.core.IsNull.nullValue;
+import static org.hamcrest.core.StringContains.containsString;
 
 /*
 I have chosen limited set of validations (in the tests) which won't be impacted by the variable responses given by Pet APIs'.
@@ -24,8 +26,35 @@ verified against length etc. of response fields
 */
 
 public class PetPostAPITests extends TestBase {
-
     @Test(priority = 1)
+    public void uploadsAnImage() //'uploads an image' API
+    {
+        test.setDescription("Find existing pet id from DB, then uploads an image for the retrieved pet id via 'Uploads an image' Post API and then validate the response");
+
+        PutAPI putAPIObj=new PutAPI();
+        long retrievedPetId=putAPIObj.retrievePetIdViaPutAPI(endpoint, test); //Calling Put API and retrieving valid pet id from Database/response
+
+        String path = "pet/"+retrievedPetId+"/uploadImage";
+
+        test.log(LogStatus.INFO,"Calling 'Uploads an image' API with image & metadata and validating status code and 'message' tag in the Response");
+        File file = new File(TestData.pathPetImage);
+        given().
+            headers(TestData.postAPIHeadersWithMultipartForm()).
+            formParam("additionalMetadata", TestData.additionalMetadata).
+            multiPart("file", file).
+        when().
+            post(path).
+        then().
+            statusCode(200). //validating response status code
+            body("message", containsString("additionalMetadata: "+TestData.additionalMetadata)). //validates response message contains metadata
+            body("message", containsString(TestData.petImageName)). //validates response message contains uploaded image name
+            header("Content-Type", equalTo("application/json")); //validating response header
+        test.log(LogStatus.INFO, "Successfully uploaded pet image '"+TestData.petImageName+"' for pet id "+retrievedPetId);
+        test.log(LogStatus.INFO, "'message' tag in the response of API contains 'additionalMetadata: "+TestData.additionalMetadata+"'");
+        test.log(LogStatus.INFO,"'message' tag in the response of API contains '"+TestData.petImageName+"'");
+    }
+
+    @Test(priority = 2)
     public void addNewPetToStore() //'Add new pet to the store' API
     {
         test.setDescription("Add new Pet with unique name and status via 'Add new pet to the store' Post API and validate the Response");
@@ -52,7 +81,7 @@ public class PetPostAPITests extends TestBase {
 
     }
 
-    @Test(priority = 2)
+    @Test(priority = 3)
     public void invalidRequestForAddingPet() //'Add new pet to the store' API
     {
         test.setDescription("Test 'Add new pet to the store' API with invalid request");
@@ -74,7 +103,7 @@ public class PetPostAPITests extends TestBase {
         test.log(LogStatus.INFO, "Response of 'Add new pet to the store' API with invalid request has status code 400, pet name null and status null");
     }
 
-    @Test(priority = 3)
+    @Test(priority = 4)
     public void updatePetWithFormData() //'Update a pet in the store with form data' API
     {
         test.setDescription("Find existing pet id from DB, then update Pet name & status via 'Update a pet in the store with form data' Post API for the retrieved pet id and then validate the response. After that call 'Get pet by id' API and validate the updated details");
@@ -114,7 +143,7 @@ public class PetPostAPITests extends TestBase {
         test.log(LogStatus.INFO, "Response of 'Find pet by id' API has name '"+updatedPetDetails[0]+"' and status '"+updatedPetDetails[1]+"' for pet id '"+retrievedPetId+"'");
     }
 
-    @Test(priority = 4)
+    @Test(priority = 5)
     public void updateNonExistentPetWithFormData() { //'Update a pet in the store with form data' API
         test.setDescription("Attempt to update pet via 'Update a pet in the store with form data' Post API for non-existent pet id and validate the response");
         Map<String, String> headers = TestData.postAPIHeadersWithForm();
@@ -136,5 +165,8 @@ public class PetPostAPITests extends TestBase {
             body("message", equalTo("not found")); //validating message in the response
         test.log(LogStatus.INFO,"Response for 'Update a pet in the store with form data' API with non-existent pet id gives status code 404 and message 'not found'");
     }
+
+
+
 
 }
