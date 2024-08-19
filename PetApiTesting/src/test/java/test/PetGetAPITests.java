@@ -12,7 +12,6 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.hamcrest.core.IsNull.nullValue;
-import static org.hamcrest.core.StringContains.containsString;
 
 /*
 I have chosen limited set of validations (in the tests) which won't be impacted by the variable responses given by Pet APIs'.
@@ -24,7 +23,7 @@ verified against length etc. of response fields
 */
 public class PetGetAPITests extends TestBase{
 
-    @Test
+    @Test(priority = 1)
     public void findPetByValidId() //'Find pet by id' API
     {
         test.setDescription("Retrieve existing pet id from DB, then search pet by valid id via 'Find pet by id' Get API and then validate the Response");
@@ -60,7 +59,7 @@ public class PetGetAPITests extends TestBase{
 
     }
 
-    @Test
+    @Test(priority = 2)
     public void findPetByInvalidId() //'Find pet by id' API
     {
         test.setDescription("Searching pet by invalid id via 'Find pet by id' Get API and validating the Response");
@@ -87,7 +86,7 @@ public class PetGetAPITests extends TestBase{
 
     }
 
-    @Test
+    @Test(priority = 3)
     public void findPetsByValidStatuses() //'Find pet by statuses' API
     {
         test.setDescription("Search pet by valid status via 'Find pet by statuses' Get API and validate the Response");
@@ -119,7 +118,7 @@ public class PetGetAPITests extends TestBase{
 
     }
 
-    @Test
+    @Test(priority = 4)
     public void findPetByInvalidStatuses() //'Find pet by statuses' API
     {
         test.setDescription("Search pet by invalid status via 'Find pet by statuses' Get API and validating the Response");

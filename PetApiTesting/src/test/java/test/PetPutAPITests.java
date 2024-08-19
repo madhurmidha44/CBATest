@@ -20,14 +20,14 @@ test data will be part of build artifact which can be easily accessed by CI/CD p
 */
 public class PetPutAPITests extends TestBase{
 
-    @Test
+    @Test(priority = 1)
     public void updateExistingPet() { //'update an existing pet' API
         test.setDescription("Update Pet with unique name & status via 'update an existing pet' Put API, validate the Response details & also grab pet id from the Respone and then validate the updated pet details via 'Find pet by id' API");
         Map<String, String> headers = TestData.postPutAPIHeaders();
         String path = "pet";
         RestAssured.baseURI = endpoint;
         //Updating pet and retrieving pet id from the response
-        test.log(LogStatus.INFO, "Updating pet name to '"+TestData.updatedNameOfPet+"' and status to '"+TestData.updatedStatusOfPet+"' and validating status code, updated name, updated status and header in the Response. Also retrieving pet id from the response");
+        test.log(LogStatus.INFO, "Updating pet name to '"+TestData.updatedNameOfPet+"' and status to '"+TestData.updatedStatusOfPet+"' via 'update an existing pet' API and validating status code, updated name, updated status and header in the Response. Also retrieving pet id from the response");
 
         long petId=given().
             headers(headers).
@@ -68,7 +68,7 @@ public class PetPutAPITests extends TestBase{
 
     }
 
-    @Test
+    @Test(priority = 2)
     public void updatePetWithBadRequest() { //'update an existing pet' API
         test.setDescription("Attempt to update pet name & status by giving bad request (without double quotes for the pet name) via 'update an existing pet' API and validate the response details");
 
@@ -77,7 +77,7 @@ public class PetPutAPITests extends TestBase{
         String path = "pet";
         RestAssured.baseURI = endpoint;
 
-        test.log(LogStatus.INFO, "Trying to update pet name to '"+TestData.updatedNameOfPet+"' and status to '"+TestData.updatedStatusOfPet+"' with bad request and validating status code, name and status in the Response");
+        test.log(LogStatus.INFO, "Trying to update pet name to '"+TestData.updatedNameOfPet+"' and status to '"+TestData.updatedStatusOfPet+"' with bad request of 'update an existing pet' API and validating status code, name and status in the Response");
 
         given().
             headers(headers).

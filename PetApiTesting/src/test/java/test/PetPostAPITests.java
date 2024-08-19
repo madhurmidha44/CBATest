@@ -25,7 +25,7 @@ verified against length etc. of response fields
 
 public class PetPostAPITests extends TestBase {
 
-    @Test
+    @Test(priority = 1)
     public void addNewPetToStore() //'Add new pet to the store' API
     {
         test.setDescription("Add new Pet with unique name and status via 'Add new pet to the store' Post API and validate the Response");
@@ -52,7 +52,7 @@ public class PetPostAPITests extends TestBase {
 
     }
 
-    @Test
+    @Test(priority = 2)
     public void invalidRequestForAddingPet() //'Add new pet to the store' API
     {
         test.setDescription("Test 'Add new pet to the store' API with invalid request");
@@ -74,7 +74,7 @@ public class PetPostAPITests extends TestBase {
         test.log(LogStatus.INFO, "Response of 'Add new pet to the store' API with invalid request has status code 400, pet name null and status null");
     }
 
-    @Test
+    @Test(priority = 3)
     public void updatePetWithFormData() //'Update a pet in the store with form data' API
     {
         test.setDescription("Find existing pet id from DB, then update Pet name & status via 'Update a pet in the store with form data' Post API for the retrieved pet id and then validate the response. After that call 'Get pet by id' API and validate the updated details");
@@ -114,7 +114,7 @@ public class PetPostAPITests extends TestBase {
         test.log(LogStatus.INFO, "Response of 'Find pet by id' API has name '"+updatedPetDetails[0]+"' and status '"+updatedPetDetails[1]+"' for pet id '"+retrievedPetId+"'");
     }
 
-    @Test
+    @Test(priority = 4)
     public void updateNonExistentPetWithFormData() { //'Update a pet in the store with form data' API
         test.setDescription("Attempt to update pet via 'Update a pet in the store with form data' Post API for non-existent pet id and validate the response");
         Map<String, String> headers = TestData.postAPIHeadersWithForm();

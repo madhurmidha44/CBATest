@@ -53,5 +53,12 @@ public class TestData {
         headers.put("Accept", "application/json");
         return headers;
     }
+    public static Map<String, String> deleteAPIHeadersWithApiKey()
+    {
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Accept", "application/json");
+        headers.put("api_key", "ab1234");
+        return headers;
+    }
 
 }

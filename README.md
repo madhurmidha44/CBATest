@@ -35,19 +35,21 @@ g) pom.xml file: This file is placed at the root of the project and it contains 
 h) Dockerfile: This file is placed at the root of the project. I have not used this file to run tests in Ubuntu docker containers to make execution faster with reduced resources as there was no such requirement mentioned in the task. Therefore, I have kep this file just for info purpose in order to convey that tests can also be run in Docker container. This file basically installs Java and Maven in Ubuntu containers and setup their Home etc path. There is another option of using ready-made Java and Maven images from Docker Hub in this file as well. This file also has the details to run the maven command to execute the tests. Docker commands to trigger this 'Dockerfile' are available in attached 'Docker commands.txt' file at the root of this project. As I said, this is just for info purpose just in acse if there was a requirement to run tests in Docker containers
 
 3. How to trigger tests:
-a) In the pom.xml file, I have added Maven surefire plugin. This plugin refers to the testng.xml file in the project. testng.xml file has details of the classes whose methods/tests (with @Test annotation) need to be run
+a) In the pom.xml file, I have added Maven surefire plugin. This plugin refers to the testng.xml file of the project in its config. 'testng.xml' file has details of the classes whose methods/tests (with @Test annotation) need to be run. This plugin has the capability to run test cases in parallel based on test classes or suites etc. I have commented parallel config as of now in the plugin but it can be uncommented as well to run the test cases in parallel based on the test classes. While running test cases in parallel, there is a risk of failure in situations such as when one test case is fetching the pet details based on pet id and another test case is updating the pet details based on the same pet id
+
 b) In order to run the tests, Maven surefire plugin needs to be triggered and this can be done via 'mvn test' command which builds the solution and then trigger the tests referred in testng.xml file
+
 c) So to execute the tests, open terminal/cmd and run command: "git clone https://github.com/madhurmidha44/CBATest.git". Then navigate to where '.git' folder of the project is present using "cd CBATest" command. Then switch to 'feature/MadhurMidha-CBATest' branch using command "git checkout feature/MadhurMidha-CBATest". Then navigate to where 'pom.xml' file of the project is present using command "cd PetApiTesting". After that, run command 'mvn test' and this is how execution of API Tests is done, its very simple
 
 4. How to run tests in CI/CD pipeline (for ex. in Jenkins etc):
-In the pipeline file/config, insert following commands once API development code is pushed to the repository in say 'test' branch: 
+In the pipeline file/config, insert following commands once API development code is pushed to the repository in say 'dev' or 'test' branch: 
 a) "git clone https://github.com/madhurmidha44/CBATest.git" in case 'PetApiTesting' project is not present on the machine. Once this is done, navigate to where '.git' folder of the project is present using "cd CBATest" command and then switch to 'feature/MadhurMidha-CBATest' branch using command "git checkout feature/MadhurMidha-CBATest". 
 If project is present on the machine, then navigate where '.git' folder of the project is present using cd command, then switch to 'feature/MadhurMidha-CBATest' branch using command "git checkout feature/MadhurMidha-CBATest" and then run 'git pull' command. 
 This will make sure that we have up to date 'PetApiTesting' project and we are on the required feature branch.
 
 b) Navigate to where 'pom.xml' file of the project is present using command "cd PetApiTesting"
 
-c) Run command "mvn test". This will trigger the tests
+c) Run command "mvn test". This will trigger the tests. On passing all the tests, pipeline will move to the next stage (deploying code to the next environment) otherwise it will be stopped
 
 5. Test Results Report:
 a) Once execution is finished, HTML test results report with the name format "PetAPIReport_yyyyMMddHHmm.html" is generated in the 'Reports' folder of the project
@@ -55,5 +57,7 @@ a) Once execution is finished, HTML test results report with the name format "Pe
 b) Report contains details of each & every test case that is run along with the information logs of test description, operations, validations and response details
 
 c) Report also contains detailed error logs against the test case in case the test case fails
+
+d) There is already one sample test report that is already present in the 'Reports' folder. This was generated during the last execution run. Just view this report for familiariazing with the report format and status of test cases
 
 
