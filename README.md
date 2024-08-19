@@ -8,7 +8,9 @@ Introduction:
 This is API Automation Testing project to test various Pet APIs' specified at https://petstore.swagger.io/#/pet. Tech stack used is Java and build tool Maven. 'Rest Assured' java library is used to trigger and validate the APIs along with Test NG assertions. Tests are created in Gherkins language (given, when, then format). Test report is generated using 'Extent Reports'.
 
 Pre-requisite:
-Install Java and Maven. And their respective paths to enviornment variables as shown in the link: https://www.tutorialspoint.com/maven/maven_environment_setup.htm. Make sure that 'java -version' and 'mvn -version' commands are working from the terminal
+a) Install Java and Maven. And their respective paths to enviornment variables as shown in the link: https://www.tutorialspoint.com/maven/maven_environment_setup.htm. Make sure that 'java -version' and 'mvn -version' commands are working from the terminal/cmd
+
+b) Install git and make sure that git command is working in the terminal/cmd
 
 Framework and structure of the project:
 1- Framework overview: 
@@ -35,12 +37,12 @@ h) Dockerfile: This file is placed at the root of the project. I have not used t
 3. How to trigger tests:
 a) In the pom.xml file, I have added Maven surefire plugin. This plugin refers to the testng.xml file in the project. testng.xml file has details of the classes whose methods/tests (with @Test annotation) need to be run
 b) In order to run the tests, Maven surefire plugin needs to be triggered and this can be done via 'mvn test' command which builds the solution and then trigger the tests referred in testng.xml file
-c) So to execute the tests, open terminal/cmd and go to the directory where pom.xml file is present in the project. After that. run command 'mvn test' and this is how execution of API Tests is done, its very simple
+c) So to execute the tests, open terminal/cmd and run command: "git clone https://github.com/madhurmidha44/CBATest.git". Then navigate to where '.git' folder of the project is present using "cd CBATest" command. Then switch to 'feature/MadhurMidha-CBATest' branch using command "git checkout -b feature/MadhurMidha-CBATest". Then navigate to where 'pom.xml' file of the project is present using command "cd PetApiTesting". After that, run command 'mvn test' and this is how execution of API Tests is done, its very simple
 
 4. How to run tests in CI/CD pipeline (for ex. in Jenkins etc):
 In the pipeline file/config, insert following commands once API development code is pushed to the repository in say 'test' branch: 
-a) "git clone https://github.com/madhurmidha44/CBATest.git" in case 'PetApiTesting' project is not present on the machine. Once this is done, navigate to where '.git' folder of the project is present using "cd CBATest" command and then switch to 'MadhurMidha-CBATest' branch using command "git checkout -b MadhurMidha-CBATest". 
-If project is present on the machine, then navigate where '.git' folder of the project is present using cd command, then switch to 'MadhurMidha-CBATest' branch using command "git checkout -b MadhurMidha-CBATest" and then run 'git pull' command. 
+a) "git clone https://github.com/madhurmidha44/CBATest.git" in case 'PetApiTesting' project is not present on the machine. Once this is done, navigate to where '.git' folder of the project is present using "cd CBATest" command and then switch to 'feature/MadhurMidha-CBATest' branch using command "git checkout -b feature/MadhurMidha-CBATest". 
+If project is present on the machine, then navigate where '.git' folder of the project is present using cd command, then switch to 'feature/MadhurMidha-CBATest' branch using command "git checkout -b feature/MadhurMidha-CBATest" and then run 'git pull' command. 
 This will make sure that we have up to date 'PetApiTesting' project and we are on the required feature branch.
 
 b) Navigate to where 'pom.xml' file of the project is present using command "cd PetApiTesting"

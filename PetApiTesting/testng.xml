@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Test-method Suite">
+    <test name="Test-method test">
+        <classes>
+            <class name="test.PetGetAPITests"/>
+            <class name="test.PetPostAPITests"/>
+            <class name="test.PetPutAPITests"/>
+            <class name="test.PetDeleteAPITests"/>
+        </classes>
+    </test> <!-- Test -->
+</suite> <!-- Suite -->

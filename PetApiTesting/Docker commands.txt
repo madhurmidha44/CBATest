@@ -1,0 +1,65 @@
+1. Build image command:
+docker build -f AddUsersWithViewEditRightsForConfluencePage\Dockerfile -t springdemo .
+
+2. Run image for containers:
+docker run -p 8081:8081 -t springdemo:latest
+
+docker run --user="me" -it springdemo:latest /bin/bash
+docker run --user="root" -it springdemo:latest /bin/bash
+
+Run docker inside docker container:
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock springdemo:latest sh -c "apt-get update ; apt-get install docker.io -y ; bash" --user="root"
+
+Run docker in interactive mode by opening bash:
+docker run -it --entrypoint /bin/bash <ImageId> -s
+
+3. Copy folder from local machine to running container:
+docker cp C:\Users\madhur.midha\Desktop\AddUsersWithViewEditRightsForConfluencePage f029fae608e8:/usr/src/app
+Copy folder from Container to local machine
+docker cp <NameOfContainer>:/usr/src/app/Reports .
+
+4. Details of running containers and images:
+See container id:
+docker ps –aq
+See container name:
+See running images:
+docker image ls
+docker ps
+docker ps -a
+
+5. Remove images and containers:
+docker rmi <IMAGE ID>
+docker rm <CONTAINER ID>
+docker rm -f c1 c2 c3 c4
+docker stop <CONTAINER ID>
+docker rmi <IMAGE ID> --force
+docker images -a -q | % { docker image rm $_ -f }
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+
+Connect to running container:
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock springdemo:latest sh -c "apt-get update ; apt-get install docker.io -y ; bash" --user="root"
+
+6. Change directory in Dockerfile:
+WORKDIR /AddUsersWithViewEditRightsForConfluencePage
+
+7. Installing Chrome:
+FROM debian:jessie
+ENV CHROME_VERSION "google-chrome-stable"
+RUN sed -i -- 's&deb http://deb.debian.org/debian jessie-updates main&#deb http://deb.debian.org/debian jessie-updates main&g' /etc/apt/sources.list \
+  && apt-get update && apt-get install wget -y
+ENV CHROME_VERSION "google-chrome-stable"
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+  && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list \
+  && apt-get update && apt-get -qqy install ${CHROME_VERSION:-google-chrome-stable}
+ENTRYPOINT ["google-chrome","--version"] 
+
+8. Site to run browser in UI mode:
+https://dev.to/darksmile92/run-gui-app-in-linux-docker-container-on-windows-host-4kde
+
+9. Connect to running container:
+docker exec -it <container name> /bin/bash
+
+
+
+
