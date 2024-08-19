@@ -43,6 +43,7 @@ c) So to execute the tests, open terminal/cmd and run command: "git clone https:
 
 4. How to run tests in CI/CD pipeline (for ex. in Jenkins etc):
 In the pipeline file/config, insert following commands once API development code is pushed to the repository in say 'dev' or 'test' branch: 
+
 a) "git clone https://github.com/madhurmidha44/CBATest.git" in case 'PetApiTesting' project is not present on the machine. Once this is done, navigate to where '.git' folder of the project is present using "cd CBATest" command and then switch to 'feature/MadhurMidha-CBATest' branch using command "git checkout feature/MadhurMidha-CBATest". 
 If project is present on the machine, then navigate where '.git' folder of the project is present using cd command, then switch to 'feature/MadhurMidha-CBATest' branch using command "git checkout feature/MadhurMidha-CBATest" and then run 'git pull' command. 
 This will make sure that we have up to date 'PetApiTesting' project and we are on the required feature branch.
