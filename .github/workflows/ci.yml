@@ -22,9 +22,6 @@ jobs:
         distribution: 'adopt'
         java-version: '8'
 
-    - name: Install dependencies
+    - name: Fresh build environment and install dependencies and run tests
       working-directory: ./PetApiTesting
-      run: mvn install
-
-    - name: Run tests
-      run: mvn test
+      run: mvn clean test
