@@ -12,6 +12,12 @@ a) Install Java and Maven. And their respective paths to enviornment variables a
 
 b) Install git and make sure that git command is working in the terminal/cmd
 
+c) Install IntelliJ Idea IDE (Integrated Development Environment) to open the 'Pet API Testing' project
+
+How to download the project on local Machine from Git Hub:
+Open terminal/cmd and run command: "git clone https://github.com/madhurmidha44/CBATest.git". Then navigate to where '.git' folder of the project is present using "cd CBATest" command. Then switch to 'feature/MadhurMidha-CBATest' branch using command "git checkout feature/MadhurMidha-CBATest".
+Now, you can see the entire 'Pet API Testing' project. Open the project in IntelliJ Idea IDE or as a matter of fact Eclipse
+
 Framework and structure of the project:
 1- Framework overview: 
     Hybrid framework composed of Test Ng, Gherkins BDD flavour (with given, when and then commands inherited from Rest Assured library) Page Object model, Data-Driven, Modular and OOPS concepts such as Inheritence
