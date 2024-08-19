@@ -36,7 +36,7 @@ public class PetPostAPITests extends TestBase {
 
         String path = "pet/"+retrievedPetId+"/uploadImage";
 
-        test.log(LogStatus.INFO,"Calling 'Uploads an image' API with image & metadata and validating status code and 'message' tag in the Response");
+        test.log(LogStatus.INFO,"Calling 'Uploads an image' API with image & metadata and validating status code, 'message' tag and headers in the Response");
         File file = new File(TestData.pathPetImage);
         given().
             headers(TestData.postAPIHeadersWithMultipartForm()).
